@@ -31,10 +31,10 @@ func validHttpsCall(ep *Endpoint) ([]byte, error) {
 		return nil, err
 	}
 
-	defer req.Body.Close()
 
 	req.Header.Add("Authorization", "Bearer "+tokenStr)
 	res, err := client.Do(req)
+	defer req.Body.Close()
 
 	if err != nil {
 		return nil, err
@@ -76,7 +76,6 @@ func invalidHttpsCall(ep *Endpoint) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer req.Body.Close()
 
 	req.Header.Add("Authorization", "Bearer "+tokenStr)
 	res, err := client.Do(req)
@@ -84,6 +83,7 @@ func invalidHttpsCall(ep *Endpoint) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
+	defer res.Body.Close()
 
 	buffer, _ := ioutil.ReadAll(res.Body)
 

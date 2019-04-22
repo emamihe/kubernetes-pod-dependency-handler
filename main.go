@@ -68,7 +68,7 @@ func main() {
 
 		var elapsedTime = int(time.Now().Sub(started).Seconds())
 		if *timeout > 0 && elapsedTime >= *timeout {
-			fmt.Println("timeout reached")
+			log.Println("timeout reached")
 			os.Exit(2)
 		}
 	}
@@ -83,7 +83,7 @@ func showHelp() {
 
 func getQueryString() string {
 	if *labelSelectors != "" {
-		return "?"+ *labelSelectors
+		return "?labelSelector="+ *labelSelectors
 	}
 	return ""
 }
