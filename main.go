@@ -55,7 +55,16 @@ func main() {
 		var c = 0
 		for _, pod := range pods.Items {
 			if pod.Status.Phase == "Running" {
-				c++
+				ready:=true
+				for _, containerStatus := range pod.Status.ContainerStatuses {
+					if !containerStatus.Ready {
+						ready = false
+						break
+					}
+				}
+				if ready {
+					c++
+				}
 			}
 		}
 
